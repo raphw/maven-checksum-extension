@@ -34,12 +34,12 @@ public class ArtifactChecksumListener extends AbstractRepositoryListener {
                 }
                 boolean append = Boolean.getBoolean("codes.rafael.mavenchecksumextension.append");
                 delegate = new ArtifactChecksumCollectionListener(file, append, algorithm, dryRun);
-            } else if (mode.equalsIgnoreCase("validate")) {
+            } else if (mode.equalsIgnoreCase("enforce")) {
                 if (!file.isFile()) {
                     throw new ArtifactChecksumError("Cannot validate against non-existing file: " + fileName);
                 }
-                boolean require = Boolean.getBoolean("codes.rafael.mavenchecksumextension.require");
-                delegate = new ArtifactChecksumValidationListener(file, require, algorithm, dryRun);
+                boolean relaxed = Boolean.getBoolean("codes.rafael.mavenchecksumextension.relaxed");
+                delegate = new ArtifactChecksumValidationListener(file, relaxed, algorithm, dryRun);
             } else {
                 throw new ArtifactChecksumError("Unknown checksum validation mode: " + mode);
             }

@@ -16,7 +16,7 @@ public class ArtifactChecksumValidationListener implements ArtifactChecksumListe
 
     private final Map<String, CharSequence> checksums;
 
-    private final boolean require;
+    private final boolean relaxed;
 
     private final String algorithm;
 
@@ -24,17 +24,17 @@ public class ArtifactChecksumValidationListener implements ArtifactChecksumListe
 
     private final ConcurrentMap<Map.Entry<String, File>, Boolean> visited = new ConcurrentHashMap<Map.Entry<String, File>, Boolean>();
 
-    ArtifactChecksumValidationListener(File file, boolean require, String algorithm, boolean dryRun) {
+    ArtifactChecksumValidationListener(File file, boolean relaxed, String algorithm, boolean dryRun) {
         checksums = new HashMap<String, CharSequence>();
         ArtifactChecksumUtils.read(LOGGER, file, checksums);
-        this.require = require;
+        this.relaxed = relaxed;
         this.algorithm = algorithm;
         this.dryRun = dryRun;
     }
 
-    ArtifactChecksumValidationListener(ConcurrentMap<String, CharSequence> checksums, boolean require, String algorithm, boolean dryRun) {
+    ArtifactChecksumValidationListener(ConcurrentMap<String, CharSequence> checksums, boolean relaxed, String algorithm, boolean dryRun) {
         this.checksums = checksums;
-        this.require = require;
+        this.relaxed = relaxed;
         this.algorithm = algorithm;
         this.dryRun = dryRun;
     }
@@ -56,7 +56,7 @@ public class ArtifactChecksumValidationListener implements ArtifactChecksumListe
                         + "for " + event.getArtifact() + " (" + event.getFile() + "): "
                         + "expected " + expected + " but computed " + actual);
             }
-        } else if (require) {
+        } else if (!relaxed) {
             throw new ArtifactChecksumError("No checksum found for " + event.getArtifact());
         } else if (dryRun) {
             LOGGER.warn("No checksum specified for {}", event.getArtifact());
