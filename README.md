@@ -70,5 +70,5 @@ When using Maven wrapper, or building on a server with a generic Maven installat
 extension securly, the `mvnchecksum` or `mvnchecksum.cmd` files in this project can be added to any project for execution. Both scripts
 will also validate the downloaded jar file against a SHA-256 checksum to avoid the corruption of the extension itself before it is executed.
 
-The script can be executed directly from a build server script or can be integrated by adding `/bin/bash .mvn/maven-checksum/mvnc` to the
+The script can be executed directly from a build server script or can be integrated by adding `/bin/sh .mvn/maven-checksum/mvnc` to the
 shell script, or `RUN .mvn\maven-checksum\mvnc.cmd` respectively.
