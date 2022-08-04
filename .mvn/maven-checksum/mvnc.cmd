@@ -47,7 +47,9 @@ SET checksumJar="maven-checksum-extension.jar"
 SET checksumSha256Sum="730cf75ef901f6a2cca57118b2ed7dfe01a369572b2719021cbb26b59f749876"
 
 @REM Setting artifact directory.
-SET checksumJarPath=%CD%\%checksumJar%
+SET SCRIPT=%~dp0
+SET SCRIPT_PATH=%SCRIPT:~0,-1%
+SET checksumJarPath=%SCRIPT_PATH%\%checksumJar%
 
 @REM Download checksum extension if not available.
 if exist %checksumJarPath% (

@@ -31,7 +31,9 @@ log() {
 }
 
 # Setting artifact directory.
-checksumJarPath=$PWD/$checksumJar
+SCRIPT=$(readlink -f "$0")
+SCRIPT_PATH=$(dirname "$SCRIPT")
+checksumJarPath=$SCRIPT_PATH/$checksumJar
 
 # Detecting if cygwin is executed.
 cygwin=false;
