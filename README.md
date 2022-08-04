@@ -66,9 +66,10 @@ to enable such validation.
 
 ### Integrating the extension
 
-When using Maven wrapper, or building on a server with a generic Maven installation, the extension will not be available. To download the 
-extension securly, the `mvnchecksum` or `mvnchecksum.cmd` files in this project can be added to any project for execution. Both scripts
-will also validate the downloaded jar file against a SHA-256 checksum to avoid the corruption of the extension itself before it is executed.
+When building on a server with a generic Maven installation, the extension will not be available. To download the extension securely, 
+the `mvnchecksum` or `mvnchecksum.cmd` files in this project can be added to any project for execution. Both scripts will also 
+validate the downloaded jar file against a SHA-256 checksum to avoid the corruption of the extension itself, prior to its execution.
 
-The script can be executed directly from a build server script or can be integrated by adding `/bin/sh .mvn/maven-checksum/mvnc` to the
-shell script, or `RUN .mvn\maven-checksum\mvnc.cmd` respectively.
+The script can be executed directly from a build server script, or can be integrated by adding `/bin/sh .mvn/maven-checksum/mvnc` to a
+shell script, or `CALL .mvn\maven-checksum\mvnc.cmd` to a Windows batch file. This way, the extension can for example be integrated into 
+Maven Wrapper.
