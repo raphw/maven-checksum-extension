@@ -42,7 +42,7 @@ set ERROR_CODE=0
 @setlocal
 
 @REM Possible user configuration.
-SET checksumUrl="https://repo.maven.apache.org/maven2/codes/rafael/mavenchecksumextension/maven-checksum-extension/maven-checksum-extension-0.0.1.jar"
+SET checksumUrl="https://repo.maven.apache.org/maven2/codes/rafael/mavenchecksumextension/maven-checksum-extension/0.0.1/maven-checksum-extension-0.0.1.jar"
 SET checksumJar="maven-checksum-extension.jar"
 SET checksumSha256Sum="730cf75ef901f6a2cca57118b2ed7dfe01a369572b2719021cbb26b59f749876"
 
