@@ -5,7 +5,7 @@
     <groupId>codes.rafael.mavenchecksumextension</groupId>
     <artifactId>maven-checksum-extension</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
