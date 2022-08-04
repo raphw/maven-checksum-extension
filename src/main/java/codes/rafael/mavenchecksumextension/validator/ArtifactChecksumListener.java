@@ -15,6 +15,8 @@ public class ArtifactChecksumListener extends AbstractRepositoryListener {
 
     private final Delegate delegate;
 
+    private final boolean snapshots;
+
     @Inject
     public ArtifactChecksumListener() {
         String mode = System.getProperty("codes.rafael.mavenchecksumextension.mode");
@@ -44,10 +46,14 @@ public class ArtifactChecksumListener extends AbstractRepositoryListener {
                 throw new ArtifactChecksumError("Unknown checksum validation mode: " + mode);
             }
         }
+        snapshots = Boolean.getBoolean("codes.rafael.mavenchecksumextension.snapshots");
     }
 
     @Override
     public void artifactResolved(RepositoryEvent event) {
+        if (!snapshots && event.getArtifact().isSnapshot()) {
+            return;
+        }
         if (delegate != null) {
             delegate.artifactResolved(event);
         }

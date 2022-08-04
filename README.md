@@ -61,6 +61,9 @@ Checksum collection must be repeated after each update of Maven or a project's P
 This extension enforces a stable sort order for the generated file such that artifact changes, including transitives, become visible by their
 checksum changes.
 
+By default, the extension does neither collect nor enforce checksums for snapshot versions. Set `-Dcodes.rafael.mavenchecksumextension.mode`
+to enable such validation.
+
 ### Integrating the extension
 
 When using Maven wrapper, or building on a server with a generic Maven installation, the extension will not be available. To download the 
