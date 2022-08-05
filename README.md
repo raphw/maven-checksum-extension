@@ -72,4 +72,6 @@ validate the downloaded jar file against a SHA-256 checksum to avoid the corrupt
 
 The script can be executed directly from a build server script, or can be integrated by adding `/bin/sh .mvn/maven-checksum/mvnc` to a
 shell script, or `CALL .mvn\maven-checksum\mvnc.cmd` to a Windows batch file. This way, the extension can for example be integrated into 
-Maven Wrapper.
+Maven Wrapper. If doing so, guard the script execution with an `if` statement (or error level jump on Windows), to exit Maven wrapper 
+in case of a failure. Note that a non-existing Maven extension is unfortunately by Maven what will result in your build executing without
+checksum verification.
