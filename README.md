@@ -7,7 +7,7 @@ a Maven repository, or otherwise intercepts a download via a man-in-the-middle a
 If a secure checksum is available for each artifact, this extension can validate each artifact against this checksum before allowing the
 artifact to execute any code. If a checksum does not match, this extension ends the execution process immediately to avoid any possible
 damage. For this purpose, this extension can generate a file which is checked into a project against which all later downloads are validated.
-As a side effect, this validation would also discover retagged versions, for example if snapshots were used.
+As a side effect, this validation would also discover re-tagged versions, for example if snapshots were used.
 
 To activate this extension, its jar file should be either placed in the Maven installation directory under *lib/ext* or be specified via the 
 *-Dmaven.ext.class.path=<extension>* property. It should however **not** be specified via *.mvn/extensions.xml* as this would require the
@@ -26,18 +26,18 @@ mvn release:prepare release:perform -DdryRun \
   -Dcodes.rafael.mavenchecksumextension.mode=collect
 ```
 
-By default, this extension uses SHA-256 checksums which are easier to compute than SHA-512 checksums but still considered non-immitatable.
-A different algorithm can be specified by setting *codes.rafael.mavenchecksumextension.algorithm*, but it is highly discouraged to use 
-weak checksums such as SHA1 or MD5.
+By default, this extension uses SHA-256 checksums which are easier to compute than SHA-512 checksums but still considered non-imitable.
+A different algorithm can be specified by setting `-Dcodes.rafael.mavenchecksumextension.algorithm=<name>`, but it is highly discouraged to use 
+weak checksums such as SHA-1 or MD5.
 
-It is possible to retain values of a previously generated file by setting *-Dcodes.rafael.mavenchecksumextension.append*. Changed checksums
+It is possible to retain values of a previously generated file by setting `-Dcodes.rafael.mavenchecksumextension.append`. Changed checksums
 for the same artifact will be replaced in such a run.
 
 ### Validating checksums
 
 During the actual build, which usually happens on a different machine in the network, the collected checksums are now available via the 
 file that was previously collected and which is stored in the version control system, together with the project's source code. These
-checksums are now enforced to ensure that any remotly altered artifact is downloaded and handed execution privilege:
+checksums are now enforced to ensure that any remotely altered artifact is downloaded and handed execution privilege:
 
 ```cmd
 mvn release:prepare release:perform \
@@ -67,7 +67,7 @@ By default, the extension does neither collect nor enforce checksums for snapsho
 ### Integrating the extension
 
 When building on a server with a generic Maven installation, the extension will not be available. To download the extension securely, 
-the `mvnchecksum` or `mvnchecksum.cmd` files in this project can be added to any project for execution. Both scripts will also 
+the `mvnc` or `mvnc.cmd` files in this project can be added to any project for execution. Both scripts will also 
 validate the downloaded jar file against a SHA-256 checksum to avoid the corruption of the extension itself, prior to its execution.
 
 The script can be executed directly from a build server script, or can be integrated by adding `/bin/sh .mvn/maven-checksum/mvnc` to a
