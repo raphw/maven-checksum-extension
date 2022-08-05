@@ -11,7 +11,7 @@ As a side effect, this validation would also discover retagged versions, for exa
 
 To activate this extension, its jar file should be either placed in the Maven installation directory under *lib/ext* or be specified via the 
 *-Dmaven.ext.class.path=<extension>* property. It should however **not** be specified via *.mvn/extensions.xml* as this would require the
-extension to be downloaded without any validation of the extension itself what would defeat its purpose. (Hopefully, something similar will
+extension to be downloaded without any validation of the extension itself, what would defeat its purpose. (Hopefully, something similar will
 however become a Maven core feature at some point.)
 
 ### Collecting checksums
@@ -61,8 +61,8 @@ Checksum collection must be repeated after each update of Maven or a project's P
 This extension enforces a stable sort order for the generated file such that artifact changes, including transitives, become visible by their
 checksum changes.
 
-By default, the extension does neither collect nor enforce checksums for snapshot versions. Set `-Dcodes.rafael.mavenchecksumextension.mode`
-to enable such validation.
+By default, the extension does neither collect nor enforce checksums for snapshot versions or artifacts in *system* scope. Set 
+`-Dcodes.rafael.mavenchecksumextension.snapshots` or `-Dcodes.rafael.mavenchecksumextension.locals` to enable such validation.
 
 ### Integrating the extension
 
@@ -72,6 +72,6 @@ validate the downloaded jar file against a SHA-256 checksum to avoid the corrupt
 
 The script can be executed directly from a build server script, or can be integrated by adding `/bin/sh .mvn/maven-checksum/mvnc` to a
 shell script, or `CALL .mvn\maven-checksum\mvnc.cmd` to a Windows batch file. This way, the extension can for example be integrated into 
-Maven Wrapper. If doing so, guard the script execution with an `if` statement (or error level jump on Windows), to exit Maven wrapper 
-in case of a failure. Note that a non-existing Maven extension is unfortunately by Maven what will result in your build executing without
-checksum verification.
+Maven Wrapper. If doing so, guard the script execution with an `if` statement (or error level `goto` on Windows batch), to exit Maven 
+wrapper in case of a failure. Note that a non-existing Maven extension is unfortunately by Maven what will result in your build executing 
+without checksum verification.
