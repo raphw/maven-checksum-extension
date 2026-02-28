@@ -21,6 +21,8 @@ public class ArtifactChecksumListener extends AbstractRepositoryListener {
 
     private final boolean snapshots;
 
+    private final boolean reactor;
+
     private final boolean locals;
 
     @Inject
@@ -53,6 +55,7 @@ public class ArtifactChecksumListener extends AbstractRepositoryListener {
             }
         }
         snapshots = Boolean.getBoolean("codes.rafael.mavenchecksumextension.snapshots");
+        reactor = Boolean.getBoolean("codes.rafael.mavenchecksumextension.reactor");
         locals = Boolean.getBoolean("codes.rafael.mavenchecksumextension.locals");
     }
 
@@ -60,6 +63,10 @@ public class ArtifactChecksumListener extends AbstractRepositoryListener {
     public void artifactResolved(RepositoryEvent event) {
         if (!snapshots && event.getArtifact().isSnapshot()) {
             LOGGER.debug("Skipping checksum handling for snapshot artifact {}", event.getArtifact());
+            return;
+        }
+        if (!reactor && event.getRepository().getContentType().equals("reactor")) {
+            LOGGER.debug("Skipping checksum handling for reactor artifact {}", event.getArtifact());
             return;
         }
         if (!locals && event.getArtifact().getProperties().containsKey("localPath")) {
