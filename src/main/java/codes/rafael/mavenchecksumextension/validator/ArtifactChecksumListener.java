@@ -61,15 +61,15 @@ public class ArtifactChecksumListener extends AbstractRepositoryListener {
 
     @Override
     public void artifactResolved(RepositoryEvent event) {
-        if (!snapshots && event.getArtifact().isSnapshot()) {
+        if (!snapshots && event.getArtifact() != null && event.getArtifact().isSnapshot()) {
             LOGGER.debug("Skipping checksum handling for snapshot artifact {}", event.getArtifact());
             return;
         }
-        if (!reactor && event.getRepository().getContentType().equals("reactor")) {
+        if (!reactor && event.getRepository() != null && event.getRepository().getContentType().equals("reactor")) {
             LOGGER.debug("Skipping checksum handling for reactor artifact {}", event.getArtifact());
             return;
         }
-        if (!locals && event.getArtifact().getProperties().containsKey("localPath")) {
+        if (!locals && event.getArtifact() != null && event.getArtifact().getProperties().containsKey("localPath")) {
             LOGGER.debug("Skipping checksum handling for local artifact {}", event.getArtifact());
             return;
         }
